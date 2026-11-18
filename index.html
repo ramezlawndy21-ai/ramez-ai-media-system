@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0d14">
+<title>RAMEZ LABIB | AI MEDIA SYSTEM</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg:#0b0d14;
+  --panel:#121622;
+  --panel2:#191f2d;
+  --border:#282f40;
+  --text:#f2f4fa;
+  --muted:#929bad;
+  --accent:#8875ff;
+  --green:#36c995;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:'Cairo',sans-serif;min-height:100vh;
+}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.layout{display:flex;min-height:100vh}
+.sidebar{
+  width:250px;background:#0e111a;border-left:1px solid var(--border);
+  padding:24px 17px;flex-shrink:0;
+}
+.brand{font-size:18px;font-weight:800;line-height:1.5}
+.brand span{color:var(--accent)}
+.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:2px}
+.profile{
+  margin:25px 0;padding:13px;background:var(--panel);
+  border:1px solid var(--border);border-radius:12px;
+}
+.profile small{color:var(--muted)}
+.profile strong{display:block;margin-top:5px}
+.nav-title{font-size:11px;color:var(--muted);margin:24px 10px 8px}
+.nav button{
+  display:flex;width:100%;align-items:center;gap:12px;
+  color:#abb3c5;background:transparent;border:0;
+  border-radius:9px;padding:11px 12px;text-align:right;margin:4px 0;
+}
+.nav button:hover,.nav button.active{
+  background:#211e39;color:white;
+}
+.nav button.active{border-right:3px solid var(--accent)}
+.main{flex:1;min-width:0;padding:25px 30px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.topbar h2{font-size:19px;margin:0}
+.status{color:var(--green);font-size:12px}
+.menu-btn{
+  display:none;background:var(--panel2);color:white;
+  border:1px solid var(--border);border-radius:8px;padding:8px 12px
+}
+.welcome{
+  margin-top:30px;padding:26px;border:1px solid var(--border);
+  border-radius:15px;
+  background:linear-gradient(115deg,#201c3d,#131827 65%,#151b27);
+}
+.welcome small{color:#b9adff}
+.welcome h1{font-size:26px;margin:10px 0}
+.welcome p{color:#aeb5c5;margin:0;font-size:13px}
+.section-head{
+  display:flex;justify-content:space-between;align-items:center;
+  margin:28px 0 14px;gap:10px
+}
+.section-head h3{font-size:16px;margin:0}
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:13px
+}
+.card{
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:12px;padding:17px;min-width:0
+}
+.stat-label{color:var(--muted);font-size:12px}
+.stat-value{font-size:27px;font-weight:800;margin:8px 0 0}
+.stat-icon{font-size:19px;margin-bottom:7px}
+.grid{
+  display:grid;grid-template-columns:1.35fr 1fr;gap:14px
+}
+.action-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:10px
+}
+.action{
+  background:var(--panel2);border:1px solid var(--border);
+  color:white;border-radius:10px;padding:16px;text-align:right;
+}
+.action:hover{border-color:var(--accent)}
+.action b{display:block;font-size:14px;margin:8px 0 3px}
+.action small{color:var(--muted);font-size:11px}
+.activity{color:var(--muted);font-size:12px;line-height:2}
+.task{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;padding:12px 0;border-bottom:1px solid var(--border)
+}
+.task:last-child{border:0}
+.task span{font-size:12px}
+.task button{
+  border:0;border-radius:7px;background:#292342;
+  color:#c8bdff;padding:6px 10px;font-size:11px
+}
+.primary{
+  background:var(--accent);color:white;border:0;
+  border-radius:8px;padding:9px 15px;font-size:12px
+}
+input,textarea{
+  width:100%;background:var(--bg);border:1px solid var(--border);
+  color:white;padding:12px;border-radius:8px;outline:none
+}
+input:focus,textarea:focus{border-color:var(--accent)}
+textarea{resize:vertical;min-height:100px}
+.page{display:none}
+.page.active{display:block}
+.editor{margin-top:15px;display:grid;gap:12px}
+.empty{color:var(--muted);font-size:12px;padding:15px 0}
+footer{text-align:center;color:#657086;font-size:11px;margin:35px 0 10px}
+@media(max-width:900px){
+ .sidebar{width:215px}
+ .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:650px){
+ .layout{display:block}
+ .sidebar{
+  display:none;position:fixed;z-index:5;right:0;top:0;
+  height:100vh;width:270px;overflow:auto
+ }
+ .sidebar.open{display:block}
+ .menu-btn{display:block}
+ .main{padding:18px 14px}
+ .topbar h2{font-size:15px}
+ .welcome{padding:19px}
+ .welcome h1{font-size:21px}
+ .grid{grid-template-columns:1fr}
+ .stats{gap:9px}
+ .card{padding:13px}
+ .stat-value{font-size:23px}
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">RAMEZ <span>LABIB.</span>
+    <small>AI MEDIA SYSTEM</small>
+  </div>
+
+  <div class="profile">
+    <small>مرحباً بك في نظامك</small>
+    <strong>Ramez Labib 👋</strong>
+  </div>
+
+  <div class="nav">
+    <div class="nav-title">القائمة الرئيسية</div>
+    <button class="active" onclick="showPage('home',this)">▦ الرئيسية</button>
+    <button onclick="showPage('design',this)">✎ إدارة التصميمات</button>
+    <button onclick="showPage('content',this)">▤ إدارة المحتوى</button>
+    <button onclick="showPage('ideas',this)">✧ الأفكار والإبداع</button>
+    <button onclick="showPage('social',this)">◎ السوشيال ميديا</button>
+    <div class="nav-title">إدارة النظام</div>
+    <button onclick="showPage('tasks',this)">☑ المهام والمشاريع</button>
+    <button onclick="showPage('settings',this)">⚙ الإعدادات</button>
+  </div>
+</aside>
+
+<main class="main">
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+      <h2>لوحة التحكم</h2>
+    </div>
+    <span class="status">● النظام جاهز</span>
+  </header>
+
+  <section class="page active" id="home">
+    <div class="welcome">
+      <small>YOUR CREATIVE WORKSPACE</small>
+      <h1>أهلاً بيك يا رامز 👋</h1>
+      <p>مساحتك الخاصة لإدارة التصميمات والمحتوى والتسويق الرقمي من مكان واحد.</p>
+    </div>
+
+    <div class="section-head"><h3>نظرة عامة</h3></div>
+    <div class="stats">
+      <div class="card">
+        <div class="stat-icon">🎨</div>
+        <div class="stat-label">التصميمات المحفوظة</div>
+        <div class="stat-value" id="designCount">0</div>
+      </div>
+      <div class="card">
+        <div class="stat-icon">📝</div>
+        <div class="stat-label">المحتوى المكتوب</div>
+        <div class="stat-value" id="contentCount">0</div>
+      </div>
+      <div class="card">
+        <div class="stat-icon">💡</div>
+        <div class="stat-label">الأفكار المسجلة</div>
+        <div class="stat-value" id="ideaCount">0</div>
+      </div>
+      <div class="card">
+        <div class="stat-icon">☑</div>
+        <div class="stat-label">المهام المسجلة</div>
+        <div class="stat-value" id="taskCount">0</div>
+      </div>
+    </div>
+
+    <div class="section-head"><h3>أدواتك السريعة</h3></div>
+    <div class="grid">
+      <div class="card">
+        <h3 style="font-size:14px;margin-top:0">ابدأ شغلك</h3>
+        <div class="action-grid">
+          <button class="action" onclick="showPage('design')">
+            🎨 <b>التصميمات</b><small>إدارة أعمال التصميم</small>
+          </button>
+          <button class="action" onclick="showPage('content')">
+            📝 <b>كتابة المحتوى</b><small>تسجيل المنشورات</small>
+          </button>
+          <button class="action" onclick="showPage('ideas')">
+            💡 <b>الأفكار</b><small>احفظ أفكارك الإبداعية</small>
+          </button>
+          <button class="action" onclick="showPage('tasks')">
+            ☑ <b>المهام</b><small>نظم يومك ومشاريعك</small>
+          </button>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="font-size:14px;margin-top:0">آخر النشاطات</h3>
+        <div id="activity" class="activity">لا توجد نشاطات حتى الآن.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="design">
+    <div class="section-head">
+      <h3>🎨 إدارة التصميمات</h3>
+    </div>
+    <div class="card">
+      <p class="stat-label">سجل اسم التصميم أو المشروع ورابط ملفه.</p>
+      <div class="editor">
+        <input id="designName" placeholder="اسم التصميم أو المشروع">
+        <input id="designLink" placeholder="رابط ملف التصميم (اختياري)">
+        <button class="primary" onclick="addItem('design')">+ حفظ التصميم</button>
+      </div>
+      <div id="designList"></div>
+    </div>
+  </section>
+
+  <section class="page" id="content">
+    <div class="section-head"><h3>📝 إدارة المحتوى</h3></div>
+    <div class="card">
+      <div class="editor">
+        <input id="contentName" placeholder="عنوان المنشور">
+        <textarea id="contentText" placeholder="اكتب محتوى المنشور هنا..."></textarea>
+        <button class="primary" onclick="addItem('content')">+ حفظ المحتوى</button>
+      </div>
+      <div id="contentList"></div>
+    </div>
+  </section>
+
+  <section class="page" id="ideas">
+    <div class="section-head"><h3>💡 بنك الأفكار الإبداعية</h3></div>
+    <div class="card">
+      <div class="editor">
+        <input id="ideaName" placeholder="عنوان الفكرة">
+        <textarea id="ideaText" placeholder="اكتب فكرتك هنا..."></textarea>
+        <button class="primary" onclick="addItem('idea')">+ احفظ الفكرة</button>
+      </div>
+      <div id="ideaList"></div>
+    </div>
+  </section>
+
+  <section class="page" id="tasks">
+    <div class="section-head"><h3>☑ المهام والمشاريع</h3></div>
+    <div class="card">
+      <div class="editor">
+        <input id="taskName" placeholder="اكتب المهمة الجديدة">
+        <button class="primary" onclick="addItem('task')">+ إضافة مهمة</button>
+      </div>
+      <div id="taskList"></div>
+    </div>
+  </section>
+
+  <section class="page" id="social">
+    <div class="section-head"><h3>◎ السوشيال ميديا</h3></div>
+    <div class="card">
+      <h3>إدارة منصات التواصل</h3>
+      <p class="activity">المساحة المخصصة لإضافة وإدارة حساباتك الاجتماعية.</p>
+      <div class="action-grid">
+        <div class="action">📘 <b>Facebook</b><small>قريباً: ربط الحساب</small></div>
+        <div class="action">📸 <b>Instagram</b><small>قريباً: ربط الحساب</small></div>
+        <div class="action">🎵 <b>TikTok</b><small>قريباً: ربط الحساب</small></div>
+        <div class="action">💬 <b>WhatsApp</b><small>قريباً: ربط الحساب</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="settings">
+    <div class="section-head"><h3>⚙ إعدادات النظام</h3></div>
+    <div class="card">
+      <h3>RAMEZ LABIB</h3>
+      <p class="activity">الإصدار الأول 1.0</p>
+      <p class="activity">يتم حفظ بيانات هذه النسخة محلياً داخل المتصفح المستخدم.</p>
+      <button class="primary" onclick="exportData()">تصدير نسخة احتياطية</button>
+    </div>
+  </section>
+
+  <footer>RAMEZ LABIB © 2026 — AI MEDIA SYSTEM</footer>
+</main>
+</div>
+
+<script>
+const types = ['design','content','idea','task'];
+let data = {};
+types.forEach(type => {
+  try {
+    data[type] = JSON.parse(localStorage.getItem('rluk_'+type)) || [];
+  } catch(e) { data[type] = []; }
+});
+
+const names = {
+ design:['designName','designLink'],
+ content:['contentName','contentText'],
+ idea:['ideaName','ideaText'],
+ task:['taskName']
+};
+
+function save(){
+ types.forEach(t=>localStorage.setItem('rluk_'+t,JSON.stringify(data[t])));
+ render();
+}
+
+function showPage(id,button){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+ if(button) button.classList.add('active');
+ document.getElementById('sidebar').classList.remove('open');
+ const titles={home:'لوحة التحكم',design:'إدارة التصميمات',content:'إدارة المحتوى',ideas:'الأفكار والإبداع',social:'السوشيال ميديا',tasks:'المهام والمشاريع',settings:'الإعدادات'};
+ document.querySelector('.topbar h2').textContent=titles[id];
+}
+
+function addItem(type){
+ const fields=names[type].map(id=>document.getElementById(id));
+ const title=fields[0].value.trim();
+ if(!title){alert('اكتب الاسم أو العنوان أولاً');return;}
+ data[type].unshift({
+  id:Date.now(),
+  title,
+  extra:fields[1]?.value.trim()||'',
+  done:false
+ });
+ fields.forEach(f=>f.value='');
+ save();
+}
+
+function removeItem(type,id){
+ data[type]=data[type].filter(x=>x.id!==id);
+ save();
+}
+
+function toggleTask(id){
+ const task=data.task.find(x=>x.id===id);
+ if(task){task.done=!task.done;save();}
+}
+
+function render(){
+ types.forEach(type=>{
+  const counter=document.getElementById(type+'Count');
+  if(counter) counter.textContent=data[type].length;
+  const list=document.getElementById(type+'List');
+  if(!list)return;
+  list.innerHTML=data[type].map(item=>`
+   <div class="task">
+    <span style="${item.done?'text-decoration:line-through;opacity:.5':''}">
+     <b>${escapeHTML(item.title)}</b>
+     ${item.extra?'<br><small class="activity">'+escapeHTML(item.extra)+'</small>':''}
+    </span>
+    <div style="display:flex;gap:5px">
+     ${type==='task'?`<button onclick="toggleTask(${item.id})">${item.done?'تم':'إنجاز'}</button>`:''}
+     <button onclick="removeItem('${type}',${item.id})">حذف</button>
+    </div>
+   </div>`).join('') || '<div class="empty">لا توجد بيانات مسجلة حتى الآن.</div>';
+ });
+ const activity=document.getElementById('activity');
+ const all=types.flatMap(t=>data[t].map(x=>({title:x.title,type:t,id:x.id})))
+ .sort((a,b)=>b.id-a.id).slice(0,5);
+ activity.innerHTML=all.length?all.map(x=>`<div>• ${escapeHTML(x.title)}</div>`).join(''):'لا توجد نشاطات حتى الآن.';
+}
+
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g,c=>({
+ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+ }[c]));
+}
+
+function exportData(){
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');
+ a.href=url;a.download='ramez-media-backup.json';a.click();
+ URL.revokeObjectURL(url);
+}
+
+render();
+</script>
+</body>
+</html>
