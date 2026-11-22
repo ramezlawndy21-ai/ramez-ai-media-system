@@ -4,410 +4,400 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b0d14">
-<title>RAMEZ LABIB | AI MEDIA SYSTEM</title>
+<meta name="theme-color" content="#11101b">
+<title>RAMEZ LABIB AI MEDIA SYSTEM</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
-
-:root {
-  --bg:#0b0d14;
-  --panel:#121622;
-  --panel2:#191f2d;
-  --border:#282f40;
-  --text:#f2f4fa;
-  --muted:#929bad;
-  --accent:#8875ff;
-  --green:#36c995;
+:root{
+  --bg:#0d0c14;--panel:#171622;--panel2:#201e2d;
+  --purple:#7657d8;--blue:#3479d8;--text:#f4f2fa;
+  --muted:#a5a1b5;--line:#302d40;--green:#35bd8a;
 }
 *{box-sizing:border-box}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:'Cairo',sans-serif;min-height:100vh;
-}
-button,input,textarea{font:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif}
+button,input,textarea,select{font:inherit}
 button{cursor:pointer}
-.layout{display:flex;min-height:100vh}
-.sidebar{
-  width:250px;background:#0e111a;border-left:1px solid var(--border);
-  padding:24px 17px;flex-shrink:0;
-}
-.brand{font-size:18px;font-weight:800;line-height:1.5}
-.brand span{color:var(--accent)}
-.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:2px}
-.profile{
-  margin:25px 0;padding:13px;background:var(--panel);
-  border:1px solid var(--border);border-radius:12px;
-}
-.profile small{color:var(--muted)}
-.profile strong{display:block;margin-top:5px}
-.nav-title{font-size:11px;color:var(--muted);margin:24px 10px 8px}
-.nav button{
-  display:flex;width:100%;align-items:center;gap:12px;
-  color:#abb3c5;background:transparent;border:0;
-  border-radius:9px;padding:11px 12px;text-align:right;margin:4px 0;
-}
-.nav button:hover,.nav button.active{
-  background:#211e39;color:white;
-}
-.nav button.active{border-right:3px solid var(--accent)}
-.main{flex:1;min-width:0;padding:25px 30px}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.topbar h2{font-size:19px;margin:0}
-.status{color:var(--green);font-size:12px}
-.menu-btn{
-  display:none;background:var(--panel2);color:white;
-  border:1px solid var(--border);border-radius:8px;padding:8px 12px
-}
-.welcome{
-  margin-top:30px;padding:26px;border:1px solid var(--border);
-  border-radius:15px;
-  background:linear-gradient(115deg,#201c3d,#131827 65%,#151b27);
-}
-.welcome small{color:#b9adff}
-.welcome h1{font-size:26px;margin:10px 0}
-.welcome p{color:#aeb5c5;margin:0;font-size:13px}
-.section-head{
-  display:flex;justify-content:space-between;align-items:center;
-  margin:28px 0 14px;gap:10px
-}
-.section-head h3{font-size:16px;margin:0}
-.stats{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:13px
-}
-.card{
-  background:var(--panel);border:1px solid var(--border);
-  border-radius:12px;padding:17px;min-width:0
-}
-.stat-label{color:var(--muted);font-size:12px}
-.stat-value{font-size:27px;font-weight:800;margin:8px 0 0}
-.stat-icon{font-size:19px;margin-bottom:7px}
-.grid{
-  display:grid;grid-template-columns:1.35fr 1fr;gap:14px
-}
-.action-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:10px
-}
-.action{
-  background:var(--panel2);border:1px solid var(--border);
-  color:white;border-radius:10px;padding:16px;text-align:right;
-}
-.action:hover{border-color:var(--accent)}
-.action b{display:block;font-size:14px;margin:8px 0 3px}
-.action small{color:var(--muted);font-size:11px}
-.activity{color:var(--muted);font-size:12px;line-height:2}
-.task{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:10px;padding:12px 0;border-bottom:1px solid var(--border)
-}
-.task:last-child{border:0}
-.task span{font-size:12px}
-.task button{
-  border:0;border-radius:7px;background:#292342;
-  color:#c8bdff;padding:6px 10px;font-size:11px
-}
-.primary{
-  background:var(--accent);color:white;border:0;
-  border-radius:8px;padding:9px 15px;font-size:12px
-}
-input,textarea{
-  width:100%;background:var(--bg);border:1px solid var(--border);
-  color:white;padding:12px;border-radius:8px;outline:none
-}
-input:focus,textarea:focus{border-color:var(--accent)}
-textarea{resize:vertical;min-height:100px}
-.page{display:none}
-.page.active{display:block}
-.editor{margin-top:15px;display:grid;gap:12px}
-.empty{color:var(--muted);font-size:12px;padding:15px 0}
-footer{text-align:center;color:#657086;font-size:11px;margin:35px 0 10px}
-@media(max-width:900px){
- .sidebar{width:215px}
- .stats{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:650px){
- .layout{display:block}
- .sidebar{
-  display:none;position:fixed;z-index:5;right:0;top:0;
-  height:100vh;width:270px;overflow:auto
- }
- .sidebar.open{display:block}
- .menu-btn{display:block}
- .main{padding:18px 14px}
- .topbar h2{font-size:15px}
- .welcome{padding:19px}
- .welcome h1{font-size:21px}
- .grid{grid-template-columns:1fr}
- .stats{gap:9px}
- .card{padding:13px}
- .stat-value{font-size:23px}
+.app{display:flex;min-height:100vh}
+.sidebar{width:250px;background:#12111b;border-left:1px solid var(--line);padding:24px 16px;position:fixed;right:0;top:0;bottom:0;overflow:auto;z-index:5}
+.brand{padding:8px 10px 25px;border-bottom:1px solid var(--line);margin-bottom:20px}
+.brand h2{font-size:19px;letter-spacing:1px;margin:0 0 8px}
+.brand p{font-size:11px;color:var(--muted);margin:0}
+.brand span{color:#a995ff}
+.nav-title{font-size:11px;color:#777287;margin:20px 12px 8px}
+.nav button{width:100%;border:0;background:transparent;color:#bcb8ca;text-align:right;padding:13px 14px;border-radius:10px;margin:3px 0}
+.nav button:hover,.nav button.active{background:#29243c;color:#fff}
+.nav button.active{border-right:3px solid #9a7dff}
+.main{margin-right:250px;width:calc(100% - 250px);padding:30px;max-width:1600px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:28px}
+.topbar h1{font-size:23px;margin:0 0 7px}
+.topbar p{color:var(--muted);font-size:13px;margin:0}
+.date{color:var(--muted);font-size:12px}
+.page{display:none}.page.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:19px;margin-bottom:16px}
+.stat small{color:var(--muted);font-size:12px}
+.stat strong{display:block;font-size:29px;margin-top:13px}
+.stat span{font-size:11px;color:#9c8ae5}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:25px 0 14px}
+.section-head h2{font-size:17px;margin:0}
+.muted{color:var(--muted);font-size:12px;line-height:1.8}
+.btn{border:0;border-radius:9px;padding:11px 16px;background:var(--purple);color:white;font-weight:bold}
+.btn:hover{filter:brightness(1.12)}
+.btn.secondary{background:var(--panel2);border:1px solid var(--line);color:#ddd8ef}
+.btn.danger{background:#7d303d}
+.btn.small{padding:7px 11px;font-size:12px}
+input,textarea,select{width:100%;background:#100f18;border:1px solid var(--line);border-radius:9px;padding:12px;color:white;outline:none;margin:7px 0 14px}
+input:focus,textarea:focus,select:focus{border-color:#8064e6}
+textarea{min-height:100px;resize:vertical}
+label{font-size:12px;color:#c9c4d7}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.item{padding:14px;background:#100f18;border:1px solid var(--line);border-radius:10px;margin:9px 0}
+.item strong{display:block;margin-bottom:7px}
+.item p{font-size:12px;color:var(--muted);white-space:pre-wrap;line-height:1.7}
+.item .meta{font-size:11px;color:#a995ff;margin-bottom:7px}
+.link-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.platform{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.platform a{color:#b9a6ff;text-decoration:none;font-size:12px}
+.platform a:hover{text-decoration:underline}
+.empty{padding:25px;text-align:center;color:var(--muted);font-size:13px}
+hr{border:0;border-top:1px solid var(--line);margin:20px 0}
+.footer{color:#777287;font-size:11px;text-align:center;margin:35px 0 10px}
+.mobile-head{display:none}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){
+ .sidebar{width:100%;height:auto;bottom:auto;position:relative;padding:12px}
+ .brand{padding:5px 8px 12px;margin-bottom:8px}
+ .brand h2{font-size:16px}
+ .nav{display:flex;overflow-x:auto;gap:5px}
+ .nav-title{display:none}
+ .nav button{white-space:nowrap;width:auto;padding:10px;font-size:12px}
+ .app{display:block}
+ .main{margin:0;width:100%;padding:17px}
+ .topbar h1{font-size:19px}
+ .date{display:none}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .card{padding:14px}
+ .stat strong{font-size:24px}
+ .form-grid,.link-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-
-<div class="layout">
-
-<aside class="sidebar" id="sidebar">
-  <div class="brand">RAMEZ <span>LABIB.</span>
-    <small>AI MEDIA SYSTEM</small>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand">
+    <h2>RAMEZ <span>LABIB</span></h2>
+    <p>AI MEDIA SYSTEM · V2.0</p>
   </div>
-
-  <div class="profile">
-    <small>مرحباً بك في نظامك</small>
-    <strong>Ramez Labib 👋</strong>
-  </div>
-
-  <div class="nav">
-    <div class="nav-title">القائمة الرئيسية</div>
-    <button class="active" onclick="showPage('home',this)">▦ الرئيسية</button>
-    <button onclick="showPage('design',this)">✎ إدارة التصميمات</button>
-    <button onclick="showPage('content',this)">▤ إدارة المحتوى</button>
-    <button onclick="showPage('ideas',this)">✧ الأفكار والإبداع</button>
-    <button onclick="showPage('social',this)">◎ السوشيال ميديا</button>
-    <div class="nav-title">إدارة النظام</div>
-    <button onclick="showPage('tasks',this)">☑ المهام والمشاريع</button>
-    <button onclick="showPage('settings',this)">⚙ الإعدادات</button>
-  </div>
+  <div class="nav-title">القائمة الرئيسية</div>
+  <nav class="nav">
+    <button class="active" data-page="home">⌂ الرئيسية</button>
+    <button data-page="content">▤ إدارة المحتوى</button>
+    <button data-page="tasks">✓ المهام</button>
+    <button data-page="ideas">✦ الأفكار</button>
+    <button data-page="ai">✧ مساعد كتابة البرومبت</button>
+    <button data-page="social">◎ حساباتي ومنصاتي</button>
+    <button data-page="settings">⚙ الإعدادات والنسخ الاحتياطي</button>
+  </nav>
 </aside>
 
 <main class="main">
-  <header class="topbar">
-    <div style="display:flex;align-items:center;gap:12px">
-      <button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
-      <h2>لوحة التحكم</h2>
-    </div>
-    <span class="status">● النظام جاهز</span>
-  </header>
+<header class="topbar">
+  <div>
+    <h1 id="pageTitle">لوحة التحكم</h1>
+    <p>مساحة واحدة لتنظيم أعمالك الإبداعية وإدارة المحتوى.</p>
+  </div>
+  <div class="date" id="today"></div>
+</header>
 
-  <section class="page active" id="home">
-    <div class="welcome">
-      <small>YOUR CREATIVE WORKSPACE</small>
-      <h1>أهلاً بيك يا رامز 👋</h1>
-      <p>مساحتك الخاصة لإدارة التصميمات والمحتوى والتسويق الرقمي من مكان واحد.</p>
+<section class="page active" id="home">
+  <div class="grid">
+    <div class="card stat"><small>إجمالي المحتوى</small><strong id="countContent">0</strong><span>كل المنشورات المسجلة</span></div>
+    <div class="card stat"><small>المهام المسجلة</small><strong id="countTasks">0</strong><span>مهام العمل</span></div>
+    <div class="card stat"><small>المهام المكتملة</small><strong id="countDone">0</strong><span>تم إنجازها</span></div>
+    <div class="card stat"><small>الأفكار المحفوظة</small><strong id="countIdeas">0</strong><span>أفكارك الإبداعية</span></div>
+  </div>
+  <div class="section-head"><h2>نظرة عامة</h2><button class="btn small" onclick="showPage('content')">إضافة محتوى جديد</button></div>
+  <div class="card">
+    <h3>مرحباً بك في RAMEZ LABIB AI MEDIA SYSTEM</h3>
+    <p class="muted">نظامك الشخصي لتنظيم التصميمات والأفكار والمنشورات والمهام. يمكنك استخدامه من الكمبيوتر أو الهاتف عن طريق المتصفح.</p>
+    <div class="actions">
+      <button class="btn" onclick="showPage('tasks')">إضافة مهمة</button>
+      <button class="btn secondary" onclick="showPage('ideas')">حفظ فكرة</button>
+      <button class="btn secondary" onclick="showPage('ai')">مساعد البرومبت</button>
     </div>
+  </div>
+  <div class="section-head"><h2>آخر المحتوى المضاف</h2></div>
+  <div class="card" id="recentContent"><div class="empty">لا يوجد محتوى حتى الآن.</div></div>
+  <div class="section-head"><h2>المهام القادمة</h2></div>
+  <div class="card" id="recentTasks"><div class="empty">لا توجد مهام مسجلة.</div></div>
+</section>
 
-    <div class="section-head"><h3>نظرة عامة</h3></div>
-    <div class="stats">
-      <div class="card">
-        <div class="stat-icon">🎨</div>
-        <div class="stat-label">التصميمات المحفوظة</div>
-        <div class="stat-value" id="designCount">0</div>
-      </div>
-      <div class="card">
-        <div class="stat-icon">📝</div>
-        <div class="stat-label">المحتوى المكتوب</div>
-        <div class="stat-value" id="contentCount">0</div>
-      </div>
-      <div class="card">
-        <div class="stat-icon">💡</div>
-        <div class="stat-label">الأفكار المسجلة</div>
-        <div class="stat-value" id="ideaCount">0</div>
-      </div>
-      <div class="card">
-        <div class="stat-icon">☑</div>
-        <div class="stat-label">المهام المسجلة</div>
-        <div class="stat-value" id="taskCount">0</div>
-      </div>
+<section class="page" id="content">
+  <div class="section-head"><h2>إدارة المحتوى والمنشورات</h2></div>
+  <div class="card">
+    <div class="form-grid">
+      <div><label>عنوان المحتوى</label><input id="contentTitle" placeholder="مثال: تصميم إعلان DTF"></div>
+      <div><label>المنصة</label><select id="contentPlatform"><option>Facebook</option><option>Instagram</option><option>TikTok</option><option>WhatsApp</option><option>أخرى</option></select></div>
+      <div><label>نوع المحتوى</label><select id="contentType"><option>تصميم</option><option>فيديو</option><option>منشور</option><option>إعلان</option><option>قصة / Story</option><option>أخرى</option></select></div>
+      <div><label>الحالة</label><select id="contentStatus"><option>فكرة</option><option>قيد التجهيز</option><option>جاهز للنشر</option><option>تم النشر</option></select></div>
     </div>
+    <label>النص أو التفاصيل</label><textarea id="contentDescription" placeholder="اكتب تفاصيل المحتوى أو الكابشن هنا..."></textarea>
+    <button class="btn" onclick="addContent()">حفظ المحتوى</button>
+  </div>
+  <div class="section-head"><h2>المحتوى المحفوظ</h2><span class="muted" id="contentTotal">0 عنصر</span></div>
+  <div id="contentList"></div>
+</section>
 
-    <div class="section-head"><h3>أدواتك السريعة</h3></div>
-    <div class="grid">
-      <div class="card">
-        <h3 style="font-size:14px;margin-top:0">ابدأ شغلك</h3>
-        <div class="action-grid">
-          <button class="action" onclick="showPage('design')">
-            🎨 <b>التصميمات</b><small>إدارة أعمال التصميم</small>
-          </button>
-          <button class="action" onclick="showPage('content')">
-            📝 <b>كتابة المحتوى</b><small>تسجيل المنشورات</small>
-          </button>
-          <button class="action" onclick="showPage('ideas')">
-            💡 <b>الأفكار</b><small>احفظ أفكارك الإبداعية</small>
-          </button>
-          <button class="action" onclick="showPage('tasks')">
-            ☑ <b>المهام</b><small>نظم يومك ومشاريعك</small>
-          </button>
-        </div>
-      </div>
-      <div class="card">
-        <h3 style="font-size:14px;margin-top:0">آخر النشاطات</h3>
-        <div id="activity" class="activity">لا توجد نشاطات حتى الآن.</div>
-      </div>
+<section class="page" id="tasks">
+  <div class="section-head"><h2>إدارة المهام</h2></div>
+  <div class="card">
+    <label>اسم المهمة</label><input id="taskTitle" placeholder="اكتب المهمة المطلوبة">
+    <div class="form-grid">
+      <div><label>تاريخ التسليم</label><input id="taskDate" type="date"></div>
+      <div><label>الأولوية</label><select id="taskPriority"><option>عادية</option><option>مهمة</option><option>عاجلة</option></select></div>
     </div>
-  </section>
+    <label>ملاحظات</label><textarea id="taskNotes" placeholder="تفاصيل إضافية (اختياري)"></textarea>
+    <button class="btn" onclick="addTask()">إضافة المهمة</button>
+  </div>
+  <div class="section-head"><h2>قائمة المهام</h2></div>
+  <div id="taskList"></div>
+</section>
 
-  <section class="page" id="design">
-    <div class="section-head">
-      <h3>🎨 إدارة التصميمات</h3>
-    </div>
-    <div class="card">
-      <p class="stat-label">سجل اسم التصميم أو المشروع ورابط ملفه.</p>
-      <div class="editor">
-        <input id="designName" placeholder="اسم التصميم أو المشروع">
-        <input id="designLink" placeholder="رابط ملف التصميم (اختياري)">
-        <button class="primary" onclick="addItem('design')">+ حفظ التصميم</button>
-      </div>
-      <div id="designList"></div>
-    </div>
-  </section>
+<section class="page" id="ideas">
+  <div class="section-head"><h2>دفتر الأفكار الإبداعية</h2></div>
+  <div class="card">
+    <label>عنوان الفكرة</label><input id="ideaTitle" placeholder="عنوان مختصر للفكرة">
+    <label>تفاصيل الفكرة</label><textarea id="ideaDescription" placeholder="اكتب فكرتك بالتفصيل..."></textarea>
+    <button class="btn" onclick="addIdea()">حفظ الفكرة</button>
+  </div>
+  <div class="section-head"><h2>الأفكار المحفوظة</h2></div>
+  <div id="ideaList"></div>
+</section>
 
-  <section class="page" id="content">
-    <div class="section-head"><h3>📝 إدارة المحتوى</h3></div>
-    <div class="card">
-      <div class="editor">
-        <input id="contentName" placeholder="عنوان المنشور">
-        <textarea id="contentText" placeholder="اكتب محتوى المنشور هنا..."></textarea>
-        <button class="primary" onclick="addItem('content')">+ حفظ المحتوى</button>
-      </div>
-      <div id="contentList"></div>
-    </div>
-  </section>
+<section class="page" id="ai">
+  <div class="section-head"><h2>مساعد كتابة البرومبت</h2></div>
+  <div class="card">
+    <p class="muted">اكتب وصف التصميم المطلوب، وسيجهز لك النظام برومبت منظم يمكنك نسخه واستخدامه في أدوات الذكاء الاصطناعي.</p>
+    <label>نوع التصميم</label>
+    <select id="promptType">
+      <option>تصميم إعلان سوشيال ميديا</option>
+      <option>هوية بصرية ولوجو</option>
+      <option>تصميم طباعة DTF</option>
+      <option>بوستر إعلاني</option>
+      <option>تصميم منتج</option>
+      <option>تصميم غلاف</option>
+      <option>تصميم آخر</option>
+    </select>
+    <label>وصف التصميم</label>
+    <textarea id="promptBrief" placeholder="اشرح الفكرة والعناصر والألوان والنصوص المطلوبة..."></textarea>
+    <label>المقاس</label><input id="promptSize" placeholder="مثال: 1080 × 1080 px">
+    <label>الأسلوب المطلوب</label>
+    <select id="promptStyle">
+      <option>احترافي وواقعي</option><option>Minimal نظيف وبسيط</option><option>فاخر وأنيق</option><option>تجاري وجذاب</option><option>إبداعي وفني</option>
+    </select>
+    <button class="btn" onclick="makePrompt()">إنشاء البرومبت</button>
+    <hr>
+    <label>النتيجة</label>
+    <textarea id="promptResult" placeholder="سيظهر البرومبت هنا..." style="min-height:180px"></textarea>
+    <button class="btn secondary" onclick="copyPrompt()">نسخ البرومبت</button>
+  </div>
+  <p class="muted">ملاحظة: هذه الأداة تنظم وتكتب البرومبت فقط، ولا تنشئ الصور أو تتصل تلقائياً بخدمات ذكاء اصطناعي خارجية.</p>
+</section>
 
-  <section class="page" id="ideas">
-    <div class="section-head"><h3>💡 بنك الأفكار الإبداعية</h3></div>
-    <div class="card">
-      <div class="editor">
-        <input id="ideaName" placeholder="عنوان الفكرة">
-        <textarea id="ideaText" placeholder="اكتب فكرتك هنا..."></textarea>
-        <button class="primary" onclick="addItem('idea')">+ احفظ الفكرة</button>
-      </div>
-      <div id="ideaList"></div>
-    </div>
-  </section>
+<section class="page" id="social">
+  <div class="section-head"><h2>حساباتي ومنصاتي الرسمية</h2></div>
+  <p class="muted">روابط حساباتك الرسمية ووسائل التواصل المباشرة.</p>
+  <div class="link-grid">
+    <div class="card platform"><div><strong>TikTok</strong><p class="muted">@ramezlabib3</p></div><a href="https://www.tiktok.com/@ramezlabib3?_r=1&_t=ZS-9BcSkJC0Qum" target="_blank" rel="noopener">فتح الحساب ↗</a></div>
+    <div class="card platform"><div><strong>Instagram</strong><p class="muted">@ramez_labib1</p></div><a href="https://www.instagram.com/ramez_labib1?knvt=aTl4d3lpOGpyZGM5" target="_blank" rel="noopener">فتح الحساب ↗</a></div>
+    <div class="card platform"><div><strong>Facebook</strong><p class="muted">الصفحة / الحساب</p></div><a href="https://www.facebook.com/share/19rXFQQg4o/" target="_blank" rel="noopener">فتح الحساب ↗</a></div>
+    <div class="card platform"><div><strong>WhatsApp</strong><p class="muted">تواصل مباشر</p></div><a href="https://wa.me/message/XGJ554SLICOOL1" target="_blank" rel="noopener">بدء محادثة ↗</a></div>
+  </div>
+  <div class="card">
+    <h3>إدارة المنصات</h3>
+    <p class="muted">الروابط أعلاه تفتح حساباتك مباشرة. النشر التلقائي أو قراءة الرسائل والإحصائيات يحتاج ربطاً رسمياً بواجهات API الخاصة بكل منصة وصلاحيات حسابك؛ الروابط وحدها لا تنفذ هذه العمليات.</p>
+  </div>
+</section>
 
-  <section class="page" id="tasks">
-    <div class="section-head"><h3>☑ المهام والمشاريع</h3></div>
-    <div class="card">
-      <div class="editor">
-        <input id="taskName" placeholder="اكتب المهمة الجديدة">
-        <button class="primary" onclick="addItem('task')">+ إضافة مهمة</button>
-      </div>
-      <div id="taskList"></div>
+<section class="page" id="settings">
+  <div class="section-head"><h2>الإعدادات والنسخ الاحتياطي</h2></div>
+  <div class="card">
+    <h3>حفظ بياناتك</h3>
+    <p class="muted">بيانات المحتوى والمهام والأفكار تُحفظ محلياً في المتصفح على الجهاز الذي تستخدمه.</p>
+    <div class="actions">
+      <button class="btn" onclick="exportData()">تصدير نسخة احتياطية JSON</button>
+      <label class="btn secondary" style="cursor:pointer">استيراد نسخة احتياطية<input type="file" id="importFile" accept=".json,application/json" style="display:none" onchange="importData(event)"></label>
     </div>
-  </section>
+  </div>
+  <div class="card">
+    <h3>معلومات النظام</h3>
+    <p class="muted">RAMEZ LABIB AI MEDIA SYSTEM — Version 2.0</p>
+    <p class="muted">واجهة متوافقة مع الكمبيوتر والموبايل. لا يوجد تسجيل دخول أو مزامنة سحابية في هذه النسخة.</p>
+  </div>
+  <div class="card">
+    <h3>مسح بيانات النظام</h3>
+    <p class="muted">سيؤدي هذا إلى حذف المحتوى والمهام والأفكار المحفوظة في هذا المتصفح.</p>
+    <button class="btn danger" onclick="clearAll()">حذف جميع البيانات</button>
+  </div>
+</section>
 
-  <section class="page" id="social">
-    <div class="section-head"><h3>◎ السوشيال ميديا</h3></div>
-    <div class="card">
-      <h3>إدارة منصات التواصل</h3>
-      <p class="activity">المساحة المخصصة لإضافة وإدارة حساباتك الاجتماعية.</p>
-      <div class="action-grid">
-        <div class="action">📘 <b>Facebook</b><small>قريباً: ربط الحساب</small></div>
-        <div class="action">📸 <b>Instagram</b><small>قريباً: ربط الحساب</small></div>
-        <div class="action">🎵 <b>TikTok</b><small>قريباً: ربط الحساب</small></div>
-        <div class="action">💬 <b>WhatsApp</b><small>قريباً: ربط الحساب</small></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="page" id="settings">
-    <div class="section-head"><h3>⚙ إعدادات النظام</h3></div>
-    <div class="card">
-      <h3>RAMEZ LABIB</h3>
-      <p class="activity">الإصدار الأول 1.0</p>
-      <p class="activity">يتم حفظ بيانات هذه النسخة محلياً داخل المتصفح المستخدم.</p>
-      <button class="primary" onclick="exportData()">تصدير نسخة احتياطية</button>
-    </div>
-  </section>
-
-  <footer>RAMEZ LABIB © 2026 — AI MEDIA SYSTEM</footer>
+<div class="footer">RAMEZ LABIB · AI MEDIA SYSTEM · V2.0</div>
 </main>
 </div>
 
 <script>
-const types = ['design','content','idea','task'];
-let data = {};
-types.forEach(type => {
-  try {
-    data[type] = JSON.parse(localStorage.getItem('rluk_'+type)) || [];
-  } catch(e) { data[type] = []; }
-});
+const KEY="ramez_labib_media_system_v2";
+let db={content:[],tasks:[],ideas:[]};
 
-const names = {
- design:['designName','designLink'],
- content:['contentName','contentText'],
- idea:['ideaName','ideaText'],
- task:['taskName']
-};
-
-function save(){
- types.forEach(t=>localStorage.setItem('rluk_'+t,JSON.stringify(data[t])));
- render();
+function loadData(){
+  try{
+    const saved=localStorage.getItem(KEY);
+    if(saved){const parsed=JSON.parse(saved);db={content:parsed.content||[],tasks:parsed.tasks||[],ideas:parsed.ideas||[]};}
+  }catch(e){console.error("تعذر تحميل البيانات",e);}
 }
-
-function showPage(id,button){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
- if(button) button.classList.add('active');
- document.getElementById('sidebar').classList.remove('open');
- const titles={home:'لوحة التحكم',design:'إدارة التصميمات',content:'إدارة المحتوى',ideas:'الأفكار والإبداع',social:'السوشيال ميديا',tasks:'المهام والمشاريع',settings:'الإعدادات'};
- document.querySelector('.topbar h2').textContent=titles[id];
+function saveData(){
+  localStorage.setItem(KEY,JSON.stringify(db));
+  renderAll();
 }
-
-function addItem(type){
- const fields=names[type].map(id=>document.getElementById(id));
- const title=fields[0].value.trim();
- if(!title){alert('اكتب الاسم أو العنوان أولاً');return;}
- data[type].unshift({
-  id:Date.now(),
-  title,
-  extra:fields[1]?.value.trim()||'',
-  done:false
- });
- fields.forEach(f=>f.value='');
- save();
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+function esc(value){
+  return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
-
-function removeItem(type,id){
- data[type]=data[type].filter(x=>x.id!==id);
- save();
+function showPage(name){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===name));
+  document.getElementById(name).classList.add("active");
+  const titles={home:"لوحة التحكم",content:"إدارة المحتوى",tasks:"إدارة المهام",ideas:"دفتر الأفكار",ai:"مساعد كتابة البرومبت",social:"حساباتي ومنصاتي",settings:"الإعدادات"};
+  document.getElementById("pageTitle").textContent=titles[name]||"النظام";
 }
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
 
+function addContent(){
+  const title=document.getElementById("contentTitle").value.trim();
+  if(!title){alert("اكتب عنوان المحتوى أولاً");return;}
+  db.content.unshift({id:uid(),title,platform:contentPlatform.value,type:contentType.value,status:contentStatus.value,description:contentDescription.value.trim(),date:new Date().toLocaleDateString("ar-EG")});
+  ["contentTitle","contentDescription"].forEach(id=>document.getElementById(id).value="");
+  saveData();
+}
+function deleteContent(id){
+  if(confirm("هل تريد حذف هذا المحتوى؟")){db.content=db.content.filter(x=>x.id!==id);saveData();}
+}
+function addTask(){
+  const title=taskTitle.value.trim();
+  if(!title){alert("اكتب اسم المهمة أولاً");return;}
+  db.tasks.unshift({id:uid(),title,date:taskDate.value,priority:taskPriority.value,notes:taskNotes.value.trim(),done:false});
+  taskTitle.value="";taskDate.value="";taskNotes.value="";
+  saveData();
+}
 function toggleTask(id){
- const task=data.task.find(x=>x.id===id);
- if(task){task.done=!task.done;save();}
+  const task=db.tasks.find(x=>x.id===id);
+  if(task)task.done=!task.done;
+  saveData();
 }
-
-function render(){
- types.forEach(type=>{
-  const counter=document.getElementById(type+'Count');
-  if(counter) counter.textContent=data[type].length;
-  const list=document.getElementById(type+'List');
-  if(!list)return;
-  list.innerHTML=data[type].map(item=>`
-   <div class="task">
-    <span style="${item.done?'text-decoration:line-through;opacity:.5':''}">
-     <b>${escapeHTML(item.title)}</b>
-     ${item.extra?'<br><small class="activity">'+escapeHTML(item.extra)+'</small>':''}
-    </span>
-    <div style="display:flex;gap:5px">
-     ${type==='task'?`<button onclick="toggleTask(${item.id})">${item.done?'تم':'إنجاز'}</button>`:''}
-     <button onclick="removeItem('${type}',${item.id})">حذف</button>
-    </div>
-   </div>`).join('') || '<div class="empty">لا توجد بيانات مسجلة حتى الآن.</div>';
- });
- const activity=document.getElementById('activity');
- const all=types.flatMap(t=>data[t].map(x=>({title:x.title,type:t,id:x.id})))
- .sort((a,b)=>b.id-a.id).slice(0,5);
- activity.innerHTML=all.length?all.map(x=>`<div>• ${escapeHTML(x.title)}</div>`).join(''):'لا توجد نشاطات حتى الآن.';
+function deleteTask(id){
+  if(confirm("هل تريد حذف المهمة؟")){db.tasks=db.tasks.filter(x=>x.id!==id);saveData();}
 }
-
-function escapeHTML(value){
- return String(value).replace(/[&<>"']/g,c=>({
- '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
- }[c]));
+function addIdea(){
+  const title=ideaTitle.value.trim(),description=ideaDescription.value.trim();
+  if(!title&&!description){alert("اكتب الفكرة أولاً");return;}
+  db.ideas.unshift({id:uid(),title:title||"فكرة جديدة",description,date:new Date().toLocaleDateString("ar-EG")});
+  ideaTitle.value="";ideaDescription.value="";
+  saveData();
 }
+function deleteIdea(id){
+  if(confirm("هل تريد حذف الفكرة؟")){db.ideas=db.ideas.filter(x=>x.id!==id);saveData();}
+}
+function makePrompt(){
+  const brief=promptBrief.value.trim();
+  if(!brief){alert("اكتب وصف التصميم أولاً");return;}
+  promptResult.value=
+`Create a professional ${promptType.value}.
 
+Design brief:
+${brief}
+
+Dimensions:
+${promptSize.value.trim()||"Use a suitable professional aspect ratio."}
+
+Visual direction:
+${promptStyle.value}.
+
+Quality requirements:
+- Strong visual hierarchy and balanced composition.
+- Clean alignment, intentional spacing and professional typography.
+- High-quality details and clear, readable elements.
+- Keep all requested text accurate and correctly spelled.
+- Avoid unnecessary decorations, clutter and random elements.
+- Make the final result look professionally art-directed, not like a generic AI template.
+
+Important: Follow the brief accurately. Do not add unrequested logos, text or objects.`;
+}
+function copyPrompt(){
+  if(!promptResult.value.trim()){alert("أنشئ البرومبت أولاً");return;}
+  navigator.clipboard.writeText(promptResult.value).then(()=>alert("تم نسخ البرومبت")).catch(()=>{promptResult.select();document.execCommand("copy");alert("تم نسخ البرومبت");});
+}
 function exportData(){
- const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
- const url=URL.createObjectURL(blob);
- const a=document.createElement('a');
- a.href=url;a.download='ramez-media-backup.json';a.click();
- URL.revokeObjectURL(url);
+  const blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download="RAMEZ-LABIB-backup.json";a.click();URL.revokeObjectURL(url);
 }
-
-render();
+function importData(event){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(reader.result);
+      if(!Array.isArray(data.content)||!Array.isArray(data.tasks)||!Array.isArray(data.ideas))throw new Error("invalid");
+      db=data;saveData();alert("تم استيراد النسخة الاحتياطية بنجاح");
+    }catch(e){alert("الملف غير صالح أو لا يحتوي على نسخة احتياطية متوافقة");}
+    event.target.value="";
+  };
+  reader.readAsText(file);
+}
+function clearAll(){
+  if(confirm("تأكيد حذف كل المحتوى والمهام والأفكار؟ لا يمكن التراجع عن هذه الخطوة.")){
+    db={content:[],tasks:[],ideas:[]};saveData();
+  }
+}
+function renderContent(){
+  contentList.innerHTML=db.content.length?db.content.map(x=>`
+    <div class="item">
+      <div class="meta">${esc(x.platform)} · ${esc(x.type)} · ${esc(x.date)}</div>
+      <strong>${esc(x.title)}</strong>
+      <p>${esc(x.description)}</p>
+      <div class="actions"><span class="muted">الحالة: ${esc(x.status)}</span><button class="btn danger small" onclick="deleteContent('${x.id}')">حذف</button></div>
+    </div>`).join(""):'<div class="empty">لا يوجد محتوى محفوظ حتى الآن.</div>';
+  contentTotal.textContent=db.content.length+" عنصر";
+  recentContent.innerHTML=db.content.slice(0,3).map(x=>`<div class="item"><strong>${esc(x.title)}</strong><span class="muted">${esc(x.platform)} · ${esc(x.status)}</span></div>`).join("")||'<div class="empty">لا يوجد محتوى حتى الآن.</div>';
+}
+function renderTasks(){
+  taskList.innerHTML=db.tasks.length?db.tasks.map(x=>`
+    <div class="item">
+      <div class="meta">${esc(x.priority)} ${x.date?"· "+esc(x.date):""}</div>
+      <strong style="${x.done?'text-decoration:line-through;opacity:.6':''}">${esc(x.title)}</strong>
+      <p>${esc(x.notes)}</p>
+      <div class="actions">
+        <button class="btn small ${x.done?'secondary':''}" onclick="toggleTask('${x.id}')">${x.done?"إلغاء الإنجاز":"تم الإنجاز ✓"}</button>
+        <button class="btn danger small" onclick="deleteTask('${x.id}')">حذف</button>
+      </div>
+    </div>`).join(""):'<div class="empty">لا توجد مهام حالياً.</div>';
+  recentTasks.innerHTML=db.tasks.filter(x=>!x.done).slice(0,3).map(x=>`<div class="item"><strong>${esc(x.title)}</strong><span class="muted">${esc(x.priority)} ${x.date?"· "+esc(x.date):""}</span></div>`).join("")||'<div class="empty">لا توجد مهام قادمة.</div>';
+}
+function renderIdeas(){
+  ideaList.innerHTML=db.ideas.length?db.ideas.map(x=>`
+    <div class="item"><div class="meta">${esc(x.date)}</div><strong>${esc(x.title)}</strong><p>${esc(x.description)}</p><button class="btn danger small" onclick="deleteIdea('${x.id}')">حذف الفكرة</button></div>`).join(""):'<div class="empty">لم تحفظ أي أفكار بعد.</div>';
+}
+function renderAll(){
+  renderContent();renderTasks();renderIdeas();
+  countContent.textContent=db.content.length;
+  countTasks.textContent=db.tasks.length;
+  countDone.textContent=db.tasks.filter(x=>x.done).length;
+  countIdeas.textContent=db.ideas.length;
+}
+loadData();
+renderAll();
+today.textContent=new Date().toLocaleDateString("ar-EG",{weekday:"long",year:"numeric",month:"long",day:"numeric"});
 </script>
 </body>
 </html>
